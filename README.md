@@ -13,7 +13,7 @@ cd repo-name
 npm install  
 npm run dev 
 
-## 🕹️ How to Play?
+🕹️ How to Play?
 Click on an empty cell to make your move.
 Players take turns placing X and O.
 The first to align 3 symbols horizontally, vertically, or diagonally wins! 🏆
