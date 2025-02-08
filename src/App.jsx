@@ -1,4 +1,5 @@
 import {useState} from "react"
+import PropTypes from "prop-types"
 function App() {
   const MOVE_X = "X"
   const MOVE_O = "O"
@@ -29,7 +30,7 @@ function App() {
   }
   
 
-  const handleTurn = (i) => {
+const handleTurn = (i) => {
     if (moves[i] || gameWinner) {
       return;
     }
@@ -53,7 +54,7 @@ function App() {
   };
 
   const tryAgain = () => {
-    setMoves([null, null, null, null, null, null, null, null, null])
+    setMoves(Array.from({length: 9}, () => null))
     setCurrentMove(MOVE_X)
     setGameWinner(null)
   }
@@ -63,7 +64,7 @@ function App() {
       <div className="container">
         <div className="container__game">
           <h2 className="container__title">Tic Tac Toe</h2>
-          {gameWinner == "Draw <3" ? <h3><span className="draw">{gameWinner}</span></h3> : ( gameWinner ? <h3>Game winner: <span className={gameWinner == MOVE_X ? "move__x" : "move__o"}>{gameWinner}</span></h3> : <h3>Current turn: <span className={currentMove == MOVE_X ? "move__x" : "move__o"}>{currentMove}</span></h3>)}
+          <GameInfo gameWinner={gameWinner} currentMove={currentMove} MOVE_X={MOVE_X} MOVE_O={MOVE_O} />
           <div className="container__gameplace">
             {moves.map((move, index) => {
               return (
@@ -79,5 +80,25 @@ function App() {
     </>
   )
 }
+
+export const GameInfo = ({gameWinner, currentMove, MOVE_X, MOVE_O}) => {
+  switch (gameWinner) {
+    case "Draw <3":
+      return <h3><span className="draw">{gameWinner}</span></h3>
+    case MOVE_X:
+    case MOVE_O:
+      return <h3>Game winner: <span className={gameWinner == MOVE_X ? "move__x" : "move__o"}>{gameWinner}</span></h3>
+    default:
+      return <h3>Current turn: <span className={currentMove == MOVE_X ? "move__x" : "move__o"}>{currentMove}</span></h3>
+  }
+}
+GameInfo.propTypes = {
+  gameWinner: PropTypes.string,
+  currentMove: PropTypes.string,
+  MOVE_X: PropTypes.string,
+  MOVE_O: PropTypes.string
+}
+
+
 
 export default App
