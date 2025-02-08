@@ -1,6 +1,7 @@
 import {useState} from "react"
 import PropTypes from "prop-types"
-function App() {
+
+const useHook = () => {
   const MOVE_X = "X"
   const MOVE_O = "O"
 
@@ -58,6 +59,11 @@ const handleTurn = (i) => {
     setCurrentMove(MOVE_X)
     setGameWinner(null)
   }
+
+  return {moves, currentMove, gameWinner, MOVE_X, MOVE_O, handleTurn, tryAgain}
+}
+function App() {
+  const {moves, currentMove, gameWinner, MOVE_X, MOVE_O, handleTurn, tryAgain} = useHook()
 
   return (
     <>
